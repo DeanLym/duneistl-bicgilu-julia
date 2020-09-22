@@ -14,7 +14,7 @@ extern "C" {
     int istl_solve_block(int n, int nnz, int* row_size, int* BI, int* BJ, 
                      double* V1, double* V2, double* V3, double* V4, 
                      double* r1, double* r2, double* dx1, double* dx2,
-                     double tol);
+                     double tol, int max_iter);
 }
 
 namespace Dune
@@ -36,7 +36,7 @@ using namespace Dune;
 int istl_solve_block(int n, int nnz, int* row_size, int* BI, int* BJ, 
                      double* V1, double* V2, double* V3, double* V4, 
                      double* r1, double* r2, double* dx1, double* dx2,
-                     double tol){
+                     double tol, int max_iter){
     
     const int BS = 2;
 
@@ -78,7 +78,7 @@ int istl_solve_block(int n, int nnz, int* row_size, int* BI, int* BJ,
     
     SeqILU<BCRSMat,BVector,BVector> prec0(Jac, true);
     // RestartedGMResSolver<BVector> solver(fop, prec0, 1e-3,5,20,2);
-    BiCGSTABSolver<BVector> solver(fop, prec0, tol,200,0);
+    BiCGSTABSolver<BVector> solver(fop, prec0, tol,max_iter,0);
     solver.apply(x, rhs, res);
     // printvector(std::cout, x, "solution", "row");
     // printvector(std::cout, rhs, "final rhs", "row");
