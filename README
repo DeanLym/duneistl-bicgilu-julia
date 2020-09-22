@@ -1,1 +1,1 @@
-A C-API function for the use of the BIGCSTAB solver with ILU preconditioner in ResSimAD.jl.
+### A C-API function for the use of DUNE-ISTL BiCG-stab ILU linear solver in ResSimAD.jl. 
